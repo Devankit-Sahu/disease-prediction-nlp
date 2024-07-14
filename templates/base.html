@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}Patient's Health Condition Classification{% endblock %}
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="flex items-center justify-between px-10 py-3">
+      <a href="/" class="font-bold text-xl">HealthHub</a>
+      <ul class="flex gap-5">
+        <li>
+          <a href="/" class="text-xl capitalize hover:text-[#3b93b7]"> home </a>
+        </li>
+        <li>
+          <a
+            href="/doctors"
+            class="text-xl capitalize hover:text-[#3b93b7]"
+          >
+            Doctors
+          </a>
+        </li>
+        <li>
+          <a
+            href="/appointments"
+            class="text-xl capitalize hover:text-[#3b93b7]"
+          >
+            My Appointments
+          </a>
+        </li>
+        <li>
+          <a
+            href="/logout"
+            class="text-xl capitalize bg-[#3b93b7] text-white px-4 py-1 rounded-md"
+          >
+            logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="main">{% block content %} {% endblock %}</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

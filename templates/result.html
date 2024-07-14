@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block title %} Patient's Health Condition
+Classification - Result {% endblock %} {% block content %}
+<div
+  class="result w-full max-w-7xl mx-auto min-h-screen flex flex-col items-center justify-center border-t pt-4 pb-10"
+>
+  <h1 class="capitalize text-5xl font-semibold mb-10">Prediction Result</h1>
+  <p class="text-gray-700 text-2xl mb-5">
+    The predicted health condition based on your review is:
+  </p>
+  <div class="text-3xl font-bold text-green-600">{{ prediction }}</div>
+
+  <h2 class="capitalize text-4xl font-semibold mt-10 mb-5">
+    Highly recommended drugs
+  </h2>
+  <ul class="text-xl flex gap-10 flex-wrap">
+    {% for drug in top_drugs %}
+    <li class="mb-3">
+      <div class="font-medium">{{ drug['drugName'] }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <h2 class="capitalize text-4xl font-semibold mt-10 mb-5">
+    Which drug is more effective?
+  </h2>
+  <canvas
+    id="drugComparisonChart"
+    width="400"
+    height="200"
+    data-drug-names="{{ top_drugs|map(attribute='drugName')|join(',') }}"
+    data-drug-ratings="{{ top_drugs|map(attribute='rating')|join(',') }}"
+  >
+  </canvas>
+  <a
+    href="/"
+    class="mt-10 text-white capitalize hover:bg-[#79bad8] bg-[#3b93b7] transition-colors duration-300 px-5 py-3 rounded-lg text-xl"
+    >Submit Another Review</a
+  >
+</div>
+<script>
+  const drugComparisonChart = document.getElementById("drugComparisonChart");
+  const drugNames = drugComparisonChart
+    .getAttribute("data-drug-names")
+    .split(",");
+  const drugRatings = drugComparisonChart
+    .getAttribute("data-drug-ratings")
+    .split(",")
+    .map(Number);
+
+  const drugComparisonData = {
+    labels: drugNames,
+    datasets: [
+      {
+        label: "Average Rating",
+        data: drugRatings,
+        backgroundColor: ["#3b93b7", "#79bad8", "#3b93b7"],
+      },
+    ],
+  };
+
+  const drugComparisonConfig = {
+    type: "bar",
+    data: drugComparisonData,
+  };
+
+  // Ensure Chart.js is loaded before attempting to create a new chart instance
+  document.addEventListener("DOMContentLoaded", function () {
+    new Chart(drugComparisonChart, drugComparisonConfig);
+  });
+</script>
+
+{% endblock %}

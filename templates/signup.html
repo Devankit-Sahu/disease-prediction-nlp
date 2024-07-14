@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient's Health Condition Classification - SignUp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="signup h-screen flex">
+      <div class="w-1/2 h-[calc(100vh-60px)] flex items-center justify-center">
+        <img
+          src="{{ url_for('static', filename='assets/signup.svg') }}"
+          alt="signup"
+          class="w-[30vw]"
+        />
+      </div>
+      <div class="w-1/2 flex flex-col items-center justify-center h-full">
+        <p class="text-2xl mb-5 font-bold text-center">
+          Welcome to <span class="text-cyan-500 text-4xl">HealthHub</span>
+        </p>
+        <h2 class="text-3xl mb-10 capitalize">Sign Up</h2>
+        <form method="POST" action="/signup" class="">
+          <div class="flex items-center gap-2 mb-3">
+            <label for="name" class="text-zinc-500"
+              ><i class="fa-solid fa-user"></i
+            ></label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="outline-none border border-gray-300 px-2 py-1 placeholder:text-md"
+              placeholder="Enter name"
+            />
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <label for="email" class="text-zinc-500"
+              ><i class="fa-solid fa-envelope"></i
+            ></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="outline-none border border-gray-300 px-2 py-1 placeholder:text-md"
+              placeholder="Enter email"
+            />
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <i class="fa-solid fa-list text-zinc-500"></i>
+            <select
+              name="role"
+              id="role"
+              class="outline-none border border-gray-300 py-1 w-full"
+              onchange="toggleFields(this.value)"
+            >
+              <option value="" selected disabled>Select role</option>
+              <option value="user">User</option>
+              <option value="doctor">Doctor</option>
+            </select>
+          </div>
+          <div
+            class="flex items-center gap-2 mb-3"
+            id="specialty-field"
+            style="display: none"
+          >
+            <label for="speciality" class="text-zinc-500"
+              ><i class="fa-solid fa-stethoscope"></i
+            ></label>
+            <input
+              type="text"
+              id="speciality"
+              name="speciality"
+              class="outline-none border border-gray-300 px-2 py-1 placeholder:text-md"
+              placeholder="Enter speciality"
+            />
+          </div>
+          <div
+            class="flex items-center gap-2 mb-3"
+            id="time-field"
+            style="display: none"
+          >
+            <label for="available_time" class="text-zinc-500"
+              ><i class="fa-solid fa-clock"></i
+            ></label>
+            <input
+              type="text"
+              id="available_time"
+              name="available_time"
+              class="outline-none border border-gray-300 px-2 py-1 placeholder:text-md"
+              placeholder="Enter available time"
+            />
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <label for="password" class="text-zinc-500"
+              ><i class="fa-solid fa-lock"></i
+            ></label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              class="outline-none border border-gray-300 px-2 py-1 placeholder:text-md"
+              placeholder="Enter password"
+            />
+          </div>
+          <button
+            type="submit"
+            class="text-white capitalize hover:bg-[#79bad8] bg-[#3b93b7] transition-colors duration-300 rounded-lg w-full py-2 mb-3"
+          >
+            SignUp
+          </button>
+        </form>
+        <p>
+          Already have an account?
+          <a href="{{ url_for('login') }}" class="underline text-cyan-500"
+            >Login</a
+          >
+        </p>
+      </div>
+    </div>
+    <script>
+      function toggleFields(role) {
+        const specialtyField = document.getElementById("specialty-field");
+        const timeField = document.getElementById("time-field");
+
+        if (role === "doctor") {
+          specialtyField.style.display = "flex";
+          timeField.style.display = "flex";
+        } else {
+          specialtyField.style.display = "none";
+          timeField.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>

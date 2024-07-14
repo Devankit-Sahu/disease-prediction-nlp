@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient's Health Condition Classification - LogIn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="login h-screen flex">
+      <div class="w-1/2 h-[calc(100vh-60px)] flex items-center justify-center">
+        <img
+          src="{{ url_for('static', filename='assets/login.svg') }}"
+          alt="login"
+          class="w-[30vw]"
+        />
+      </div>
+      <div class="w-1/2 flex flex-col items-center justify-center h-full">
+        <p class="text-2xl mb-5 font-bold text-center">Welcome to <span class="text-cyan-500 text-4xl">HealthHub</span></p>
+        <h2 class="text-3xl mb-10 capitalize">Log In</h2>
+        <form method="POST" action="/login">
+          <div class="flex items-center gap-2 mb-3">
+            <label for="email" class="text-zinc-500"
+              ><i class="fa-solid fa-envelope"></i
+            ></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="outline-none border border-gray-300 px-2 py-1 placeholder:text-md"
+              placeholder="Enter email"
+            />
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <label for="password" class="text-zinc-500"
+              ><i class="fa-solid fa-lock"></i
+            ></label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              class="outline-none border border-gray-300 px-2 py-1 placeholder:text-md"
+              placeholder="Enter password"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full text-white capitalize hover:bg-[#79bad8] bg-[#3b93b7] transition-colors duration-300 rounded-lg w-full py-2 mb-3"
+          >
+            Login
+          </button>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %}
+        <div class="mb-4">
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }} text-{{ category }}">
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %} {% endwith %}
+        <p>
+          Don't have an account?
+          <a href="{{ url_for('signup') }}" class="underline text-cyan-500"
+            >Sign up</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

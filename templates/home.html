@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block content %}
+<div class="min-h-screen">
+  <div class="home h-[calc(100vh-55px)]">
+    <div class="flex flex-col items-center gap-10 py-60">
+      <h1 class="capitalize text-7xl w-[50vw] text-center font-semibold">
+        Diseases prediction and drug recommendation using drug reviews
+      </h1>
+      <p class="text-gray-700 text-2xl">
+        Unlock Health Insights from Your Drug Reviews.
+      </p>
+    </div>
+  </div>
+  <div class="h-screen">
+    <h1 class="text-center capitalize text-3xl mt-20 text-gray-700">
+      Get Ahead of Illness with AI Drug Review Analysis
+    </h1>
+    <div class="flex max-w-7xl w-full mx-auto">
+      <div class="w-1/2 h-[calc(100vh-60px)] flex items-center justify-center">
+        <img
+          src="{{ url_for('static', filename='assets/side.svg') }}"
+          alt="side"
+          class="w-[30vw]"
+        />
+      </div>
+      <div class="w-1/2 flex items-center justify-center h-[calc(100vh-60px)]">
+        <form
+          id="reviewForm"
+          action="/predict"
+          method="POST"
+          class="flex flex-col gap-5"
+          onsubmit="showLoader()"
+        >
+          <p class="text-gray-700 text-xl text-center mb-10 font-medium">
+            Submit your drug review and let our AI model predict potential
+            diseases. Gain insights into your health based on your medication
+            experiences.
+          </p>
+          <textarea
+            rows="5"
+            cols="70"
+            class="outline-none border border-gray-400 px-2 py-3 rounded-md placeholder:text-gray-400"
+            placeholder="Enter your review..."
+            type="text"
+            name="review"
+            id="review"
+          ></textarea>
+          <button
+            type="submit"
+            id="submitBtn"
+            class="text-white capitalize hover:bg-[#79bad8] bg-[#3b93b7] transition-colors duration-300 w-fit mx-auto px-5 py-3 rounded-lg text-xl flex gap-2 items-center"
+          >
+            <div id="loader" class="loader hidden"></div>
+            <span id="btnText">Submit your review</span>
+          </button>
+        </form>
+        <div
+          id="loader"
+          class="hidden w-10 h-10 border-4 border-t-4 border-gray-200 rounded-full mt-4"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

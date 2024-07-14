@@ -1,0 +1,84 @@
+{% extends "base.html" %} 
+{% block title %} Patient's Health Condition Classification - Result {% endblock %} 
+{% block content %}
+<div class="doctors w-full max-w-7xl mx-auto min-h-screen border-t pt-4 pb-10">
+  <h1 class="capitalize text-2xl font-semibold my-5">
+    Book your appointment with doctors now
+  </h1>
+  {% if doctors %}
+  <div class="flex flex-wrap gap-x-5 gap-y-5 justify-center">
+    {% for doctor in doctors %}
+    <form
+      action="/create_appointment"
+      method="post"
+      class="border border-gray-300 p-4"
+    >
+      <div class="flex gap-2">
+        <input
+          type="text"
+          class="hidden"
+          value="{{doctor.id}}"
+          name="doctor_id"
+          id="doctor_id"
+        />
+        <label class="text-xl font-bold" for="doctor_name">Doctor name</label>
+        <input
+          value="{{ doctor.name }}"
+          readonly
+          type="text"
+          class="outline-none"
+        />
+      </div>
+      <div class="flex gap-2">
+        <label class="text-xl font-bold" for="speciality">Speciality :</label>
+        <input
+          value="{{ doctor.speciality }}"
+          readonly
+          type="text"
+          class="outline-none"
+        />
+      </div>
+      <div class="flex gap-2">
+        <label class="text-xl font-bold" for="available_time"
+          >Available time :</label
+        >
+       <select name="time" id="time" class="outline-none">
+          {% for time in doctor.available_time.split(',') %}
+          <option value="{{ time.strip() }}">{{ time.strip() }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="flex gap-2">
+        <label class="text-xl font-bold" for="date">Date :</label>
+        <input
+          type="date"
+          name="date"
+          id="date"
+          class="outline-none"
+        />
+      </div>
+      <button
+        type="submit"
+        class="text-xl capitalize bg-[#3b93b7] text-white px-4 py-1 rounded-md mt-2"
+      >
+        Book appointment
+      </button>
+    </form>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center text-xl text-red-500">
+    No doctors available at the moment.
+  </div>
+  {% endif %}
+  <!-- {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+  <div class="mb-4">
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} text-{{ category }} text-xl">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %} {% endwith %} -->
+</div>
+{% endblock %}

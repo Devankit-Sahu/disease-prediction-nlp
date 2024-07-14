@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient's Health Condition Classification - Dasboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="flex items-center justify-between px-10 py-3">
+      <div>MedicalSugg</div>
+      <ul class="flex gap-5">
+        <li>
+          <a href="/dashboard" class="text-xl capitalize hover:text-[#3b93b7]">
+            home
+          </a>
+        </li>
+        <li>
+          <a
+            href="/logout"
+            class="text-xl capitalize bg-[#3b93b7] text-white px-4 py-1 rounded-md"
+          >
+            logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="dashboard min-h-screen">
+      <div class="border-t max-w-7xl mx-auto w-full">
+        <h1 class="text-3xl font-semibold pt-5 pb-10 capitalize">
+          Manage your appoinments
+        </h1>
+        <div>
+          <table class="border border-gray-400 w-full">
+            <thead>
+              <tr>
+                <th class="py-2 px-2" align="left">Appoinment ID</th>
+                <th class="py-2 px-2" align="left">Appoinment Date</th>
+                <th class="py-2 px-2" align="left">Appoinment Time</th>
+                <th class="py-2 px-2" align="left">Created By</th>
+                <th class="py-2 px-2" align="left">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment, doctor in appointments %}
+              <tr class="hover:bg-gray-200 cursor-pointer">
+                <td class="py-2 px-2">{{ appointment.id }}</td>
+                <td class="py-2 px-2">{{ appointment.date }}</td>
+                <td class="py-2 px-2">{{ appointment.time }}</td>
+                <td class="py-2 px-2">{{ doctor.name }}</td>
+                <td class="py-2 px-2">
+                  <form action="{{ url_for('update_appointment_status', id=appointment.id) }}" method="POST">
+                    <select name="status" onchange="this.form.submit()" class="w-full bg-transparent">
+                      <option value="pending" {% if appointment.status == 'pending' %}selected{% endif %}>Pending</option>
+                      <option value="approved" {% if appointment.status == 'approved' %}selected{% endif %}>Approved</option>
+                      <option value="rejected" {% if appointment.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block title %} Patient's Health Condition
+Classification - Appointments {% endblock %} {% block content %}
+<div class="appointments min-h-screen border-t max-w-7xl mx-auto w-full">
+  <h1 class="text-3xl font-semibold pt-5 pb-10 capitalize">my appoinments</h1>
+  <div>
+    <table class="border border-gray-400 w-full">
+      <thead>
+        <tr>
+          <th class="py-2 px-2" align="left">Appoinment ID</th>
+          <th class="py-2 px-2" align="left">Appoinment Date</th>
+          <th class="py-2 px-2" align="left">Appoinment Time</th>
+          <th class="py-2 px-2" align="left">Doctor</th>
+          <th class="py-2 px-2" align="left">Status</th>
+          <th class="py-2 px-2" align="left">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for appointment, doctor in appointments %}
+        <tr class="hover:bg-gray-200 cursor-pointer">
+          <td class="py-2 px-2">{{ appointment.id }}</td>
+          <td class="py-2 px-2">{{ appointment.date }}</td>
+          <td class="py-2 px-2">{{ appointment.time }}</td>
+          <td class="py-2 px-2">{{ doctor.name }}</td>
+          <td class="py-2 px-2">{{ appointment.status }}</td>
+          <td class="py-2 px-2">
+            <form
+              action="{{ url_for('delete_appointment', id=appointment.id) }}""
+              method="POST"
+            >
+              <button
+                type="submit"
+                class="bg-red-500 text-white px-3 py-1 rounded"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

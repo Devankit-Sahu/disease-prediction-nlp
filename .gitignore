@@ -1,0 +1,20 @@
+# Virtual environment
+venv/
+
+# IDE/Editor files
+.vscode/
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Dependency files
+Pipfile.lock
